@@ -55,23 +55,21 @@ const Api = () => {
     };
 
     const borrarTarea = (id) => {
+        const nuevasTareas = todos.filter(t => t.id !== id);
+        setTodos(nuevasTareas);
         fetch(API_URL + "/todos/" + id, {
             method: "DELETE"
         })
-            .then(response => response.json())
-            .then(() => traerLista())
             .catch(error => console.log(error));
     };
 
+
     const borrarUsuario = () => {
+        setTodos([]);
         fetch(API_URL + "/users/SantiagoC", {
             method: "DELETE"
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Usuario eliminado:", data);
-                traerLista();
-            })
+            .then(() => crearUsuario())
             .catch(error => console.log(error));
     };
 
